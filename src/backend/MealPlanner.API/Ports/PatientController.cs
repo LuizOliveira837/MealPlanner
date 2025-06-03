@@ -1,4 +1,4 @@
-﻿using MealPlanner.Application.Patient.UseCases;
+﻿using MealPlanner.Application.Patient.UseCases.RegisterPatient;
 using MealPlanner.Commnication.Request;
 using Microsoft.AspNetCore.Mvc;
 
