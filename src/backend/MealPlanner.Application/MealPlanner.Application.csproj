@@ -19,4 +19,8 @@
     <ProjectReference Include="..\MealPlanner.Domain\MealPlanner.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Patient\UseCases\DeletePatient\" />
+  </ItemGroup>
+
 </Project>

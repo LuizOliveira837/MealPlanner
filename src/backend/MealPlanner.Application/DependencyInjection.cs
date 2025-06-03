@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using MealPlanner.Application.Patient.UseCases;
+using MealPlanner.Application.Patient.UseCases.RegisterPatient;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MealPlanner.Application
