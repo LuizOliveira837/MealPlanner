@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MealPlanner.Commnication.Request;
 
 namespace MealPlanner.Application.Patient.UseCases
 {
-    internal class IRegisterPatientUseCase
+    public interface IRegisterPatientUseCase
     {
+
+        public Task<int> Execute(RequestRegisterPatient request);
+        public void Validade(RequestRegisterPatient request);
     }
 }
