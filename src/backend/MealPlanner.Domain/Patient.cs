@@ -19,6 +19,8 @@ namespace MealPlanner.Domain
         public double Weight { get; set; }
         public double Height { get; set; }
 
+        public ICollection<MealPlan> MealPlans { get; set; }
+
 
 
 
