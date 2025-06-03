@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using MealPlanner.Commnication.Request;
 
-namespace MealPlanner.Application.Patient.UseCases
+namespace MealPlanner.Application.Patient.UseCases.RegisterPatient
 {
     public class ValidadeRequestRegisterPatient : AbstractValidator<RequestRegisterPatient>
     {

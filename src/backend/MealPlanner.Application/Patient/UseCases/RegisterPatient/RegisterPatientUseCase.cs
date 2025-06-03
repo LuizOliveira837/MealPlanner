@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using MealPlanner.Application.Services;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Domain.Interfaces;
 
-namespace MealPlanner.Application.Patient.UseCases
+namespace MealPlanner.Application.Patient.UseCases.RegisterPatient
 {
     public class RegisterPatientUseCase : IRegisterPatientUseCase
     {
-        public Task<int> Execute(RequestRegisterPatient request)
+        public readonly IPatientRepository _respository;
+        public RegisterPatientUseCase(IPatientRepository respository) => _respository = respository;
+        public async Task<Guid> Execute(RequestRegisterPatient request)
         {
 
             //VALIDAÇÃO
@@ -20,12 +23,13 @@ namespace MealPlanner.Application.Patient.UseCases
                 conf.AddProfile(new MealPlannerMapper());
             }));
 
-            var user = mapper.Map<RequestRegisterPatient>(request);
+            var patient = mapper.Map<Domain.Patient>(request);
 
-
+            var id = await _respository
+                .Create(patient);
             //CRIAÇÃO COM BD
 
-            return Task.FromResult(1);
+            return id;
         }
 
         public void Validade(RequestRegisterPatient request)
