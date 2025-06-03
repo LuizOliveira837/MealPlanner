@@ -15,7 +15,7 @@ namespace MealPlanner.Domain
             Height = height;
         }
 
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty; 
         public double Weight { get; set; }
         public double Height { get; set; }
 

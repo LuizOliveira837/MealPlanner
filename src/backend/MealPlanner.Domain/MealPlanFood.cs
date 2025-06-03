@@ -13,7 +13,7 @@ namespace MealPlanner.Domain
         public Guid FoodId { get; set; }
         public double PortionSizeInGrams { get; set; }
 
-        public MealPlan MealPlan { get; set; }
+        public MealPlan MealPlan { get; set; } 
         public Food Food { get; set; }
 
         [NotMapped]

@@ -8,7 +8,7 @@ namespace MealPlanner.Domain
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();  
+        public Guid Id { get; set; } = Guid.NewGuid();
         public bool Active { get; set; } = true;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
     }

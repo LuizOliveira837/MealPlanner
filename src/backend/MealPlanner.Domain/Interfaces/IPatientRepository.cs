@@ -10,7 +10,7 @@ namespace MealPlanner.Domain.Interfaces
     {
 
         public Task<Guid> Create(Patient patient); 
-        public Task<Patient> GetById(Guid id);
+        public Task<Patient> GetById(Guid id); 
         public Task<Guid> Delete(Guid id);
         public Task Update();
 

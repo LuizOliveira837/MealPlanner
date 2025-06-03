@@ -11,6 +11,6 @@ namespace MealPlanner.Domain
 
         public Guid PatientId { get; set; }
         public Patient Patient { get; set; }
-        public ICollection<MealPlanFood> MealPlanFoods { get; set; }
+        public ICollection<MealPlanFood> MealPlanFoods { get; set; } 
     }
 }
