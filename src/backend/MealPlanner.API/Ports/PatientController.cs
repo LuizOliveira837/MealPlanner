@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealPlanner.Commnication.Request;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealPlanner.API.Ports
 {
@@ -7,7 +8,7 @@ namespace MealPlanner.API.Ports
     public class PatientController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post([FromBody] RequestRegisterPatient request)
         {
             return Ok();
         }

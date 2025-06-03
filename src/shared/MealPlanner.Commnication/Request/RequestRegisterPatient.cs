@@ -4,23 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlanner.Domain
+namespace MealPlanner.Commnication.Request
 {
-    public class Patient : BaseEntity
+    public class RequestRegisterPatient
     {
-        public Patient(string name, double weight, double height)
-        {
-            Name = name;
-            Weight = weight;
-            Height = height;
-        }
-
         public string Name { get; set; } = string.Empty;
         public double Weight { get; set; }
         public double Height { get; set; }
-
-
-
-
     }
 }
