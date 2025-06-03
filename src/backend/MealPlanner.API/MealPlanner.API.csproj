@@ -7,7 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\MealPlanner.Commnication\MealPlanner.Commnication.csproj" />
+    <ProjectReference Include="..\..\shared\MealPlanner.Exception\MealPlanner.Exception.csproj" />
+    <ProjectReference Include="..\MealPlanner.Application\MealPlanner.Application.csproj" />
+    <ProjectReference Include="..\MealPlanner.Persistence\MealPlanner.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

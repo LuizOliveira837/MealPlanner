@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealPlanner.Application.Patient.UseCases.RegisterPatient;
+using MealPlanner.Commnication.Request;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealPlanner.API.Ports
 {
@@ -7,8 +9,11 @@ namespace MealPlanner.API.Ports
     public class PatientController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post
+            ([FromServices] IRegisterPatientUseCase registerPatientUseCase
+            , [FromBody] RequestRegisterPatient request)
         {
+            await registerPatientUseCase.Execute(request);
             return Ok();
         }
 
