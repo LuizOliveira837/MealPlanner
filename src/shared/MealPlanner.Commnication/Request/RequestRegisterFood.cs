@@ -4,18 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlanner.Domain
+namespace MealPlanner.Commnication.Request
 {
-    public class Food : BaseEntity
+    public class RequestRegisterFood
     {
-        public Food(string name, double caloriesPerGram)
-        {
-            Name = name;
-            CaloriesPerGram = caloriesPerGram;
-        }
-
         public string Name { get; set; } = string.Empty;
         public double CaloriesPerGram { get; set; }
-
     }
 }

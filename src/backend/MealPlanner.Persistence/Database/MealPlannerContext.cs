@@ -17,6 +17,7 @@ namespace MealPlanner.Persistence.Database
         }
 
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Food> Foods { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
