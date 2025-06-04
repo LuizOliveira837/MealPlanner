@@ -20,7 +20,9 @@ namespace MealPlanner.Persistence.Interfaces
         }
         public async Task<Guid> Create(Patient patient)
         {
-            await _context.AddAsync(patient);
+            await _context
+                .Patients
+                .AddAsync(patient);
             await Update();
 
             return patient.Id;

@@ -20,6 +20,9 @@ namespace MealPlanner.Persistence
 
             services
                 .AddScoped<IPatientRepository, PatientRepository>();
+
+            services
+                .AddScoped<IFoodRepository, FoodRepository>();
         }
     }
 }

@@ -10,6 +10,9 @@ namespace MealPlanner.Application.Services
         {
             CreateMap<RequestRegisterPatient, MealPlanner.Domain.Patient>
                 ();
+
+            CreateMap<RequestRegisterFood, MealPlanner.Domain.Food>
+                ();
         }
     }
 }
