@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using MealPlanner.Application.Patient.UseCases.DeletePatient;
 using MealPlanner.Application.Patient.UseCases.RegisterPatient;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,13 @@ namespace MealPlanner.Application
         {
             services
                 .AddScoped<IRegisterPatientUseCase, RegisterPatientUseCase>();
+           
+            services
+                .AddScoped<IDeletePatientUseCase, DeletePatientUseCase>();
+
+
+
+            
 
             services
                 .AddValidatorsFromAssembly(typeof(ValidadeRequestRegisterPatient).Assembly);
