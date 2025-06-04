@@ -1,4 +1,5 @@
-﻿using MealPlanner.Application.Patient.UseCases.RegisterPatient;
+﻿using MealPlanner.Application.Patient.UseCases.DeletePatient;
+using MealPlanner.Application.Patient.UseCases.RegisterPatient;
 using MealPlanner.Commnication.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +24,10 @@ namespace MealPlanner.API.Ports
             return Ok();
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteById(int id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> DeleteById([FromServices] IDeletePatientUseCase deletePatientUseCase, Guid id)
         {
+            await deletePatientUseCase.Execute(new RequestDeletePatient(id));
             return Ok();
         }
 

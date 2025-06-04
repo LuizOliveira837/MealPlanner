@@ -1,6 +1,7 @@
 ﻿using MealPlanner.Domain;
 using MealPlanner.Domain.Interfaces;
 using MealPlanner.Persistence.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,35 @@ namespace MealPlanner.Persistence.Interfaces
         public async Task<Guid> Create(Patient patient)
         {
             await _context.AddAsync(patient);
-            await _context.SaveChangesAsync();
+            await Update();
 
             return patient.Id;
         }
 
-        public Task<Guid> Delete(Guid id)
+        public async Task<Guid> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var patient = await GetById(id);
+
+            patient.Active = false;
+
+            await Update();
+
+            return id;  
+
         }
 
-        public Task<Patient> GetById(Guid id)
+        public async Task<Patient> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return
+                await _context.Patients.FirstAsync(x => x.Id == id);
+
+
         }
 
-        public Task Update()
+        public async Task Update()
         {
-            throw new NotImplementedException();
+            await _context.SaveChangesAsync();
+
         }
     }
 }
