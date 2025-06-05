@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MealPlanner.Application.Patient.UseCases.DeletePatient;
+using MealPlanner.Application.Patient.UseCases.GetPatient;
+using MealPlanner.Application.Patient.UseCases.GetPatientMealPlan;
+using MealPlanner.Application.Patient.UseCases.RegisterPatient;
+using MealPlanner.Commnication.Request;
+using MealPlanner.Commnication.Response;
+using MealPlanner.Domain;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MealPlanner.API.Ports
 {
@@ -7,27 +14,48 @@ namespace MealPlanner.API.Ports
     public class PatientController : Controller
     {
         [HttpPost]
-        public async Task<IActionResult> Post()
+        public async Task<IActionResult> Post
+            ([FromServices] IRegisterPatientUseCase registerPatientUseCase
+            , [FromBody] RequestRegisterPatient request)
         {
+            var id = await registerPatientUseCase.Execute(request);
+            return new CreatedAtActionResult("GetById", "Patient", new { id }, request);
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> GetById([FromServices] IGetPatientByIdUseCase getPatientByIdUseCase, Guid id)
+        {
+            var patient = await getPatientByIdUseCase.Execute(new RequestGetPatientById(id));
+
+
+            return Ok(patient);
+
+        }
+
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> DeleteById([FromServices] IDeletePatientUseCase deletePatientUseCase, Guid id)
+        {
+            await deletePatientUseCase.Execute(new RequestDeletePatient(id));
             return Ok();
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("/patients/{id:guid}/mealplans/today")]
+        public async Task<ActionResult<ResponsePatientMealPlanTodayDetail>> Put
+            ([FromServices] IGetPatientMealPlanUseCase useCase, Guid id)
         {
-            return Ok();
+            var result = await useCase.Execute(new RequestGetPatientMealPlan(id));
+            return Ok(result);
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> DeleteById(int id)
-        {
-            return Ok();
-        }
 
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Put(int id)
         {
             return Ok();
         }
+
+
+
+
     }
 }
