@@ -2,6 +2,7 @@
 using MealPlanner.Application.Services;
 using MealPlanner.Commnication.Request;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 
 namespace MealPlanner.Application.Patient.UseCases.RegisterPatient
 {
@@ -40,9 +41,8 @@ namespace MealPlanner.Application.Patient.UseCases.RegisterPatient
 
             if (!result.IsValid)
             {
-                throw new Exception(result
-                    .Errors[0]
-                    .ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
         }
     }

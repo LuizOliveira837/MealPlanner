@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Exception;
 
 namespace MealPlanner.Application.Patient.UseCases.RegisterPatient
 {
@@ -10,18 +11,18 @@ namespace MealPlanner.Application.Patient.UseCases.RegisterPatient
         {
             RuleFor
                 (patient => patient.Name)
-                .NotEmpty().WithMessage("O nome não pode ser vazio")
-                .MaximumLength(40).WithMessage("O nome tem que ter no maximo 40 caracteres")
-                .MinimumLength(4).WithMessage("O nome tem que ter no minimo 4 caracteres");
+                .NotEmpty().WithMessage(MealPlannerResource.NAME_INVALID)
+                .MaximumLength(40).WithMessage(MealPlannerResource.PARAMETER_INVALID)
+                .MinimumLength(4).WithMessage(MealPlannerResource.PARAMETER_INVALID);
 
             RuleFor
                 (Patient => Patient.Weight)
-                .NotNull().WithMessage("O peso não pode ser vazio")
-                .GreaterThan(10).WithMessage("O peso teve ser maior que 10 Kg");
+                .NotNull().WithMessage(MealPlannerResource.PARAMETER_INVALID)
+                .GreaterThan(10).WithMessage(MealPlannerResource.PARAMETER_INVALID);
 
             RuleFor
                 (Patient => Patient.Height)
-                .NotNull().WithMessage("A altura não pode ser vazio");
+                .NotNull().WithMessage(MealPlannerResource.PARAMETER_INVALID);
 
         }
     }

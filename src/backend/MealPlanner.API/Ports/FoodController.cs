@@ -13,9 +13,9 @@ namespace MealPlanner.API.Ports
         [HttpPost]
         public async Task<IActionResult> Post([FromServices] IRegisterFoodUseCase registerFoodUseCase, [FromBody] RequestRegisterFood request)
         {
-            await registerFoodUseCase.Execute(request);
+            var id = await registerFoodUseCase.Execute(request);
 
-            return Ok();
+            return Ok(id);
         }
 
     }

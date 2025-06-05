@@ -2,6 +2,7 @@
 using MealPlanner.Application.Services;
 using MealPlanner.Commnication.Request;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,15 +21,16 @@ namespace MealPlanner.Application.Food.UseCases
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task Execute(RequestRegisterFood request)
+        public async Task<Guid> Execute(RequestRegisterFood request)
         {
             await Validade(request);
 
 
             var food = _mapper.Map<MealPlanner.Domain.Food>(request);
 
-            await _repository.Create(food);
+            var id = await _repository.Create(food);
 
+            return id;
 
         }
 
@@ -40,8 +42,8 @@ namespace MealPlanner.Application.Food.UseCases
 
             if (!result.IsValid)
             {
-                throw new Exception(result
-                    .Errors[0].ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
         }
     }

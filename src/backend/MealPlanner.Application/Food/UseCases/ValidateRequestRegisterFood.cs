@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,12 @@ namespace MealPlanner.Application.Food.UseCases
         public ValidateRequestRegisterFood()
         {
             RuleFor
-                (food => food.Name).NotEmpty().WithName("O nome não pode ser Vazio");
+                (food => food.Name).NotEmpty().WithName(MealPlannerResource.PARAMETER_INVALID);
            
             RuleFor
                 (food => food.CaloriesPerGram)
-                .NotEmpty().WithName("O nome não pode ser Vazio")
-                .GreaterThanOrEqualTo(0).WithMessage("As calorias não podem ser menor que zero");
+                .NotEmpty().WithName(MealPlannerResource.PARAMETER_INVALID)
+                .GreaterThanOrEqualTo(0).WithMessage(MealPlannerResource.PARAMETER_INVALID);
 
         }
     }

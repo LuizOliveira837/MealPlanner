@@ -43,7 +43,7 @@ namespace MealPlanner.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Food");
+                    b.ToTable("Foods", (string)null);
                 });
 
             modelBuilder.Entity("MealPlanner.Domain.MealPlan", b =>
@@ -58,6 +58,13 @@ namespace MealPlanner.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DayOfTheWeek")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("PatientId")
                         .HasColumnType("uniqueidentifier");
 
@@ -65,13 +72,15 @@ namespace MealPlanner.Persistence.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("MealPlan");
+                    b.ToTable("MealPlans", (string)null);
                 });
 
             modelBuilder.Entity("MealPlanner.Domain.MealPlanFood", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("MealPlanId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FoodId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Active")
@@ -80,22 +89,17 @@ namespace MealPlanner.Persistence.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("FoodId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MealPlanId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("PortionSizeInGrams")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("MealPlanId", "FoodId");
 
                     b.HasIndex("FoodId");
 
-                    b.HasIndex("MealPlanId");
-
-                    b.ToTable("MealPlanFood");
+                    b.ToTable("MealPlanFoods", (string)null);
                 });
 
             modelBuilder.Entity("MealPlanner.Domain.Patient", b =>
@@ -122,7 +126,7 @@ namespace MealPlanner.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_Patients", (string)null);
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("MealPlanner.Domain.MealPlan", b =>
