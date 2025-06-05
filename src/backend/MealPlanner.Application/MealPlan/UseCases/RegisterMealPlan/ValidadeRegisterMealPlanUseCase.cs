@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,14 @@ namespace MealPlanner.Application.MealPlan.UseCases.RegisterMealPlan
         {
             RuleFor
                 (mp => mp.PatientId)
-                .NotNull().WithMessage("Id do paciente não pode ser nulo");
+                .NotNull().WithMessage(MealPlannerResource.ID_NOT_NULL);
             RuleFor
                 (mp => mp.Name)
-                .NotEmpty().WithMessage("O nome não pode ser vazio");
+                .NotEmpty().WithMessage(MealPlannerResource.NAME_INVALID);
             RuleFor
                 (mp => mp.DayOfTheWeek)
-                .InclusiveBetween(0, 6);
+                .InclusiveBetween(0, 6).WithMessage(MealPlannerResource.PARAMETER_INVALID);
+
         }
     }
 }

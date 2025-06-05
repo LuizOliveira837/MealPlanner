@@ -2,6 +2,7 @@
 using MealPlanner.Application.Services;
 using MealPlanner.Commnication.Request;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,8 +42,8 @@ namespace MealPlanner.Application.Food.UseCases
 
             if (!result.IsValid)
             {
-                throw new Exception(result
-                    .Errors[0].ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
         }
     }

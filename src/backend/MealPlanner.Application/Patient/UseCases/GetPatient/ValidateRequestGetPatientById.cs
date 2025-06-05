@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace MealPlanner.Application.Patient.UseCases.GetPatient
         public ValidateRequestGetPatientById()
         {
             RuleFor
-                (p => p.Id).NotNull().WithMessage("Id não pode ser nulo");
+                (p => p.Id).NotNull().WithMessage(MealPlannerResource.ID_NOT_NULL);
 
         }
     }

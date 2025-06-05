@@ -1,6 +1,7 @@
-﻿using MealPlanner.Commnication;
-using MealPlanner.Commnication.Request;
+﻿using MealPlanner.Commnication.Request;
+using MealPlanner.Commnication.Response;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +29,13 @@ namespace MealPlanner.Application.Patient.UseCases.GetPatientMealPlan
 
             var result = await _mealPlanRepository.GetMealPlanFoodByPatient(request.Id, dayOfWeek);
 
-            if (result == null) throw new Exception("Paciente não possui plano alimentar");
+            if (result == null) {
+
+                throw new ExceptionOnValidation(new List<string>()
+                {
+                    "Paciente não possui plano alimentar"
+                });
+            }
 
             var response = new ResponsePatientMealPlanTodayDetail();
 
@@ -67,13 +74,18 @@ namespace MealPlanner.Application.Patient.UseCases.GetPatientMealPlan
 
             if (!result.IsValid)
             {
-                throw new Exception(result.Errors[0].ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
 
             var patient = await _repository.GetById(request.Id);
             if (patient.Equals(null))
             {
-                throw new Exception("O paciente não existe");
+                throw new ExceptionOnValidation(new List<string>()
+                {
+                    MealPlannerResource.PATIENT_NOTFOUNT
+                });
+
             }
 
         }

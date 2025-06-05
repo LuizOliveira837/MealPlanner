@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using MealPlanner.Commnication;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Commnication.Response;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,10 @@ namespace MealPlanner.Application.Patient.UseCases.GetPatient
 
             if (patient == null)
             {
-                throw new Exception("Paciente não encontrado");
+                throw new ExceptionOnValidation(new List<string>()
+                {
+                    MealPlannerResource.PATIENT_NOTFOUNT
+                });
 
             }
 
@@ -49,8 +53,8 @@ namespace MealPlanner.Application.Patient.UseCases.GetPatient
 
             if (!result.IsValid)
             {
-                throw new Exception(result
-                    .Errors[0].ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
         }
     }

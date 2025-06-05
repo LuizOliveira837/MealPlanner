@@ -2,6 +2,7 @@
 using MealPlanner.Commnication.Request;
 using MealPlanner.Domain;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,8 +45,8 @@ namespace MealPlanner.Application.MealPlan.UseCases.AddMealPlanFood
 
             if (!result.IsValid)
             {
-                throw
-                    new Exception(result.Errors[0].ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
 
             var mealPlan = await
@@ -53,8 +54,11 @@ namespace MealPlanner.Application.MealPlan.UseCases.AddMealPlanFood
 
             if (mealPlan == null)
             {
+                throw new ExceptionOnValidation(new List<string>()
+                {
+                    "mealPlan não existe"
+                });
 
-                throw new Exception("mealPlan não existe");
             }
 
             var food = await
@@ -62,8 +66,10 @@ namespace MealPlanner.Application.MealPlan.UseCases.AddMealPlanFood
 
             if (food == null)
             {
-
-                throw new Exception("food não existe");
+                throw new ExceptionOnValidation(new List<string>()
+                {
+                    "food não existe"
+                });
             }
 
 

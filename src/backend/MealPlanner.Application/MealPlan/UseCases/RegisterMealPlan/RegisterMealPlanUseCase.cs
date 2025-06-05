@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MealPlanner.Commnication.Request;
 using MealPlanner.Domain.Interfaces;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MealPlanner.Application.MealPlan.UseCases.RegisterMealPlan
 {
@@ -25,13 +27,7 @@ namespace MealPlanner.Application.MealPlan.UseCases.RegisterMealPlan
         {
             await Validate(request);
 
-            var patient = await _patientRepository.GetById(request.PatientId);
-
-            if (patient == null)
-            {
-
-                throw new Exception("Paciente não existe");
-            }
+           
 
 
             var mealPlan = _mapper.Map<Domain.MealPlan>(request);
@@ -50,11 +46,23 @@ namespace MealPlanner.Application.MealPlan.UseCases.RegisterMealPlan
 
             var result = validator.Validate(request);
 
+            var patient = await _patientRepository.GetById(request.PatientId);
+
+            if (patient == null)
+            {
+
+                throw new ExceptionOnValidation(new List<string>()
+                {
+                    MealPlannerResource.PATIENT_NOTFOUNT
+                });
+
+            }
+
 
             if (!result.IsValid)
             {
-                throw new Exception(result
-                    .Errors[0].ToString());
+                var erros = result.Errors.Select(e => e.ErrorMessage.ToString()).ToList();
+                throw new ExceptionOnValidation(erros);
             }
         }
     }

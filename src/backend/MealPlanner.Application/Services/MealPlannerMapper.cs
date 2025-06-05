@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MealPlanner.Commnication;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Commnication.Response;
 
 namespace MealPlanner.Application.Services
 {

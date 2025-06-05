@@ -2,8 +2,8 @@
 using MealPlanner.Application.Patient.UseCases.GetPatient;
 using MealPlanner.Application.Patient.UseCases.GetPatientMealPlan;
 using MealPlanner.Application.Patient.UseCases.RegisterPatient;
-using MealPlanner.Commnication;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Commnication.Response;
 using MealPlanner.Domain;
 using Microsoft.AspNetCore.Mvc;
 

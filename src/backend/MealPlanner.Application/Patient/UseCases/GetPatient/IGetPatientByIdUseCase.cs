@@ -1,5 +1,5 @@
-﻿using MealPlanner.Commnication;
-using MealPlanner.Commnication.Request;
+﻿using MealPlanner.Commnication.Request;
+using MealPlanner.Commnication.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;

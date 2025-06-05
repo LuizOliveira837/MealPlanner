@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlanner.Commnication
+namespace MealPlanner.Commnication.Response
 {
     public class ResponseGetPatientById
     {

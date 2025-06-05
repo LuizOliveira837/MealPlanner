@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using MealPlanner.Commnication.Request;
+using MealPlanner.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,13 @@ namespace MealPlanner.Application.MealPlan.UseCases.AddMealPlanFood
         public ValidateRequestAddMealPlanFood()
         {
             RuleFor
-                (mpf => mpf.FoodId).NotNull().NotEmpty().WithMessage("O id da comida não pode estar vazio");
+                (mpf => mpf.FoodId).NotNull().NotEmpty().WithMessage(MealPlannerResource.ID_NOT_NULL);
 
             RuleFor
-               (mpf => mpf.MealPlanId).NotNull().NotEmpty().WithMessage("O PLano de alimentação não pode estar vazio");
+               (mpf => mpf.MealPlanId).NotNull().NotEmpty().WithMessage(MealPlannerResource.PARAMETER_INVALID);
 
             RuleFor
-              (mpf => mpf.PortionSizeInGrams).NotNull().NotEmpty().WithMessage("A porção não pode estar vazio");
+              (mpf => mpf.PortionSizeInGrams).NotNull().NotEmpty().WithMessage(MealPlannerResource.PARAMETER_INVALID);
         }
     }
 }
