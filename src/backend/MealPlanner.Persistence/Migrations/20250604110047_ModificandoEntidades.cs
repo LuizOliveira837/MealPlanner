@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MealPlanner.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class ModificandoEntidades : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -47,15 +47,17 @@ namespace MealPlanner.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DayOfTheWeek = table.Column<int>(type: "int", nullable: false),
                     PatientId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MealPlan", x => x.Id);
+                    table.PrimaryKey("PK_MealPlans", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MealPlan_tb_Patients_PatientId",
+                        name: "FK_MealPlans_Patients_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patients",
                         principalColumn: "Id",
@@ -66,24 +68,24 @@ namespace MealPlanner.Persistence.Migrations
                 name: "MealPlanFoods",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MealPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FoodId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PortionSizeInGrams = table.Column<double>(type: "float", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MealPlanFood", x => x.Id);
+                    table.PrimaryKey("PK_MealPlanFoods", x => new { x.MealPlanId, x.FoodId });
                     table.ForeignKey(
-                        name: "FK_MealPlanFood_Food_FoodId",
+                        name: "FK_MealPlanFoods_Foods_FoodId",
                         column: x => x.FoodId,
                         principalTable: "Foods",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MealPlanFood_MealPlan_MealPlanId",
+                        name: "FK_MealPlanFoods_MealPlans_MealPlanId",
                         column: x => x.MealPlanId,
                         principalTable: "MealPlans",
                         principalColumn: "Id",
@@ -91,19 +93,14 @@ namespace MealPlanner.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MealPlan_PatientId",
-                table: "MealPlans",
-                column: "PatientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MealPlanFood_FoodId",
+                name: "IX_MealPlanFoods_FoodId",
                 table: "MealPlanFoods",
                 column: "FoodId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MealPlanFood_MealPlanId",
-                table: "MealPlanFoods",
-                column: "MealPlanId");
+                name: "IX_MealPlans_PatientId",
+                table: "MealPlans",
+                column: "PatientId");
         }
 
         /// <inheritdoc />

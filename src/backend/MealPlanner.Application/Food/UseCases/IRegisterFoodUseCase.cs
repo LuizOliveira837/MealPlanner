@@ -10,7 +10,7 @@ namespace MealPlanner.Application.Food.UseCases
     public interface IRegisterFoodUseCase
     {
 
-        public Task Execute(RequestRegisterFood request);
+        public Task<Guid> Execute(RequestRegisterFood request);
 
         public Task Validade(RequestRegisterFood request);
     }

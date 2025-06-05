@@ -39,7 +39,7 @@ namespace MealPlanner.Persistence.Interfaces
         {
             var food = await _context
                 .Foods
-                .FirstAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return food;
         }

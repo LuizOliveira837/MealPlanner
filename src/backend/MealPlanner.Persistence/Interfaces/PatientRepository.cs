@@ -36,16 +36,17 @@ namespace MealPlanner.Persistence.Interfaces
 
             await Update();
 
-            return id;  
+            return id;
 
         }
 
         public async Task<Patient> GetById(Guid id)
         {
-            return
-                await _context.Patients.FirstAsync(x => x.Id == id);
+            var patient = await _context
+                .Patients
+                .FirstOrDefaultAsync(p => p.Id == id);
 
-
+            return patient;
         }
 
         public async Task Update()
