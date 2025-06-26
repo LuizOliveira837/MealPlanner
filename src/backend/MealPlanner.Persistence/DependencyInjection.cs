@@ -1,9 +1,12 @@
-﻿using MealPlanner.Domain.Interfaces;
+﻿using FluentMigrator.Runner;
+using MealPlanner.Domain.Interfaces;
 using MealPlanner.Persistence.Database;
 using MealPlanner.Persistence.Interfaces;
+using MealPlanner.Persistence.Migrations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace MealPlanner.Persistence
 {
@@ -26,6 +29,18 @@ namespace MealPlanner.Persistence
 
             services
                 .AddScoped<IMealPlanRepository, MealPlanRepository>();
+
+            services
+                .AddFluentMigratorCore()
+                .ConfigureRunner(rb =>
+                {
+
+                    rb.AddSqlServer()
+                    .WithGlobalConnectionString(configuration.GetConnectionString("MealPlanner"))
+                    .ScanIn(Assembly.Load("MealPlanner.Persistence")).For.All();
+                    
+                });
         }
     }
 }
+

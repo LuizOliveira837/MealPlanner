@@ -1,6 +1,8 @@
 using MealPlanner.API.Filter;
 using MealPlanner.Application;
 using MealPlanner.Persistence;
+using MealPlanner.Persistence.Extensions;
+using MealPlanner.Persistence.Migrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,4 +32,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+EnsureDatabase(app.Services);
+
 app.Run();
+
+
+void EnsureDatabase(IServiceProvider provider)
+{
+    var scope = provider.CreateScope().ServiceProvider;
+    CreateMigration.EnsureDatabase(app.Configuration.GetConnectionStringMealPlanner());
+    CreateMigration.UpMigrations(scope);
+}

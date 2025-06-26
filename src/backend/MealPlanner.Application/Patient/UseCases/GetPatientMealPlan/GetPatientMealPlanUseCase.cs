@@ -43,8 +43,8 @@ namespace MealPlanner.Application.Patient.UseCases.GetPatientMealPlan
             response.PatientName = result.First().PatientName;
 
             var groupedMealPlans = result
-                .GroupBy(r => new { r.MealPlanId, r.MealPlanName, r.DayOfTheWeek })
-                .Select(g => new MealPlanInfo
+                .GroupBy(r => new { r.MealPlanId, r.MealPlanName, r.DayOfTheWeek, })
+                .Select(g =>  new MealPlanInfo
                 {
                     MealPlanId = g.Key.MealPlanId,
                     MealPlanName = g.Key.MealPlanName,

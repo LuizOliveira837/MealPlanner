@@ -61,6 +61,24 @@ namespace MealPlanner.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The calories should be greater than zero..
+        /// </summary>
+        public static string CALORIES_INVALID {
+            get {
+                return ResourceManager.GetString("CALORIES_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a The name attribute is invalid.
+        /// </summary>
+        public static string FOOD_NAME_INVALID {
+            get {
+                return ResourceManager.GetString("FOOD_NAME_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a ID não pode ser nulo.
         /// </summary>
         public static string ID_NOT_NULL {

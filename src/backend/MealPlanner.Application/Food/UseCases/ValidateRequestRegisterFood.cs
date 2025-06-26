@@ -11,15 +11,15 @@ namespace MealPlanner.Application.Food.UseCases
 {
     public class ValidateRequestRegisterFood : AbstractValidator<RequestRegisterFood>
     {
+
         public ValidateRequestRegisterFood()
         {
             RuleFor
-                (food => food.Name).NotEmpty().WithName(MealPlannerResource.PARAMETER_INVALID);
-           
+                (food => food.Name).NotEmpty().WithMessage(MealPlannerResource.FOOD_NAME_INVALID);
+
             RuleFor
                 (food => food.CaloriesPerGram)
-                .NotEmpty().WithName(MealPlannerResource.PARAMETER_INVALID)
-                .GreaterThanOrEqualTo(0).WithMessage(MealPlannerResource.PARAMETER_INVALID);
+                .GreaterThanOrEqualTo(0).WithMessage(MealPlannerResource.CALORIES_INVALID);
 
         }
     }
